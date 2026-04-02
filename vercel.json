@@ -1,3 +1,32 @@
-﻿{
-  "version": 2
+{
+  "version": 2,
+  "buildCommand": "echo 'Skipping build'",
+  "framework": null,
+  "public": ".",
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/index.html",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/order.html",
+      "destination": "/order.html"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/:path*"
+    }
+  ]
 }

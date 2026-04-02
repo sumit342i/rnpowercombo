@@ -1,0 +1,8 @@
+# Don't ignore any files - we need all assets
+# node_modules and .git are automatically ignored by Vercel
+*.md
+.git
+.gitignore
+.env
+.env.example
+node_modules
