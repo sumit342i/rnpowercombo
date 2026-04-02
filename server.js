@@ -253,9 +253,23 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Serve order page
+// Serve order page  
 app.get('/order', (req, res) => {
     res.sendFile(path.join(__dirname, 'order.html'));
+});
+
+// Serve order.html directly
+app.get('/order.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'order.html'));
+});
+
+// 404 handler for unmapped routes
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Route not found',
+        path: req.path
+    });
 });
 
 // Error handling middleware
@@ -270,10 +284,17 @@ app.use((err, req, res, next) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
-    if (process.env.NODE_ENV === 'development') {
-        console.log(`📧 Email system configured for: ${process.env.EMAIL_USER}`);
-        console.log(`💼 Admin email: ${ADMIN_EMAIL}`);
-    }
-});
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server is running on port ${PORT}`);
+        if (process.env.NODE_ENV === 'development') {
+            console.log(`📧 Email system configured for: ${process.env.EMAIL_USER}`);
+            console.log(`💼 Admin email: ${ADMIN_EMAIL}`);
+        }
+    });
+}
+
+// Export for Vercel serverless
+module.exports = app;
