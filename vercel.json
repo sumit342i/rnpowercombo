@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Static site - no build needed'",
-  "framework": null,
   "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
