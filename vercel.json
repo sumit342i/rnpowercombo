@@ -1,32 +1,38 @@
 {
   "version": 2,
-  "buildCommand": "echo 'Skipping build'",
+  "buildCommand": "echo 'Static site - no build needed'",
   "framework": null,
-  "public": ".",
-  "cleanUrls": true,
+  "cleanUrls": false,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=3600"
+          "value": "public, max-age=86400, immutable"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
         }
       ]
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/index.html",
-      "destination": "/index.html"
+      "src": "/index.html",
+      "dest": "/index.html",
+      "methods": ["GET", "HEAD"]
     },
     {
-      "source": "/order.html",
-      "destination": "/order.html"
+      "src": "/order.html",
+      "dest": "/order.html",
+      "methods": ["GET", "HEAD"]
     },
     {
-      "source": "/:path*",
-      "destination": "/:path*"
+      "src": "/(.+)",
+      "dest": "/$1"
     }
   ]
 }
